@@ -15,33 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe.test.model;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe.util;
+
+import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsRTException;
 
 /**
  * @author Miguel Gamboa at CCISEL
  */
-public class StudentDto {
+public class SneakyApp {
 
-  final public int id;
-  final public String birthDate;
-  final public String name;
-
-  public StudentDto() {
-    this.id = 0;
-    this.birthDate = null;
-    this.name = "DEFAULT NAME";
+  public static void main(String[] args) {
+    teste();
   }
 
-  public StudentDto(int id, String birthDate, String name) {
-    this.id = id;
-    this.birthDate = birthDate;
-    this.name = name;
+  public static void teste() {
+    try {
+      m(0);
+    } catch (IllegalAccessException ex) {
+      throwAsRTException(ex);
+    }
   }
 
-
-  @Override
-  public String toString() {
-    return "StudentDto{" + "id=" + id + ", birthDate=" + birthDate + ", name=" + name + '}';
+  public static void m(int div) throws IllegalAccessException {
+    try {
+      int n = 5;
+      int res = n / div;
+    } catch (ArithmeticException ex) {
+      throw new IllegalAccessException("Illegal div = " + div);
+    }
   }
-
 }

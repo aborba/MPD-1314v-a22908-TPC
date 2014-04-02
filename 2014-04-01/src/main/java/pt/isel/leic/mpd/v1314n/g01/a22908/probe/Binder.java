@@ -1,10 +1,10 @@
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static pt.isel.leic.pdm.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsRTException;
+import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsRTException;
 
 public class Binder<T> {
 

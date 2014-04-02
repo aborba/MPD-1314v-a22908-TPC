@@ -14,11 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 import java.lang.reflect.Field;
 
-import static pt.isel.leic.pdm.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsRTException;
+import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsRTException;
 
 /**
  * @author Miguel Gamboa at CCISEL

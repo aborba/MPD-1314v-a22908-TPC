@@ -14,34 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe.util;
-
-import static pt.isel.leic.pdm.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsRTException;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 /**
  * @author Miguel Gamboa at CCISEL
  */
-public class SneakyApp {
+public class BindFieldNonNull extends BindNonNull {
 
-  public static void main(String[] args) {
-    teste();
+  public BindFieldNonNull() {
+    super(new BindField());
   }
 
-  public static void teste() {
-    try {
-      m(0);
-    } catch (IllegalAccessException ex) {
-      throwAsRTException(ex);
-    }
-  }
-
-  public static void m(int div) throws IllegalAccessException {
-    try {
-      int n = 5;
-      int res = n / div;
-    } catch (ArithmeticException ex) {
-      throw new IllegalAccessException("Illegal div = " + div);
-    }
-  }
 }

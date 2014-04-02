@@ -14,15 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 /**
  * @author Miguel Gamboa at CCISEL
  */
-public class BindPropNonNull<T> extends BindNonNull<T> {
+public interface BindMember<T> {
 
-  public BindPropNonNull(Class<T> k) {
-    super(new BindProp(k));
-  }
+  public boolean bind(T target, String name, Object v);
 
 }

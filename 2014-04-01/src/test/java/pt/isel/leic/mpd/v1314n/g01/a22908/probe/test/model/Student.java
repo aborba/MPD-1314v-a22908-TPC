@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe.test.model;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe.test.model;
 
 import java.util.Date;
 import java.util.LinkedList;

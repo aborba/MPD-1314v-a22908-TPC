@@ -1,4 +1,4 @@
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 /**
  * Created by António on 2014/04/02.

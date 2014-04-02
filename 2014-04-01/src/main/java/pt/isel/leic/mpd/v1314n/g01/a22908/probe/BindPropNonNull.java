@@ -14,25 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe.util;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 /**
  * @author Miguel Gamboa at CCISEL
  */
-public class SneakyUtils {
+public class BindPropNonNull<T> extends BindNonNull<T> {
 
-
-  public static void throwAsRTException(Throwable t) {
-    SneakyUtils.<RuntimeException>sneakyThrow(t);
+  public BindPropNonNull(Class<T> k) {
+    super(new BindProp(k));
   }
-    
-    /*
-     * Reinier Zwitserloot who, as far as I know, had the first mention of this
-     * technique in 2009 on the java posse mailing list.
-     * http://www.mail-archive.com/javaposse@googlegroups.com/msg05984.html
-     */
 
-  public static <T extends Throwable> void sneakyThrow(Throwable t) throws T {
-    throw (T) t;
-  }
 }

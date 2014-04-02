@@ -14,35 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe.util;
 
 /**
  * @author Miguel Gamboa at CCISEL
  */
-public class BindNonNull<T> implements BindMember<T> {
+public class SneakyUtils {
 
-  private final BindMember bindMember;
 
-  public BindNonNull(BindMember bindMember) {
-    if (bindMember instanceof BindNonNull)
-      throw new IllegalArgumentException("BindMember cannot be an instance of BindNonNull");
-    this.bindMember = bindMember;
+  public static void throwAsRTException(Throwable t) {
+    SneakyUtils.<RuntimeException>sneakyThrow(t);
   }
+    
+    /*
+     * Reinier Zwitserloot who, as far as I know, had the first mention of this
+     * technique in 2009 on the java posse mailing list.
+     * http://www.mail-archive.com/javaposse@googlegroups.com/msg05984.html
+     */
 
-  /**
-   * bind - Default implementation - Acts on Non Null Values Only
-   *
-   * @param target
-   * @param name
-   * @param v
-   * @return
-   */
-  public boolean bind(T target, String name, Object v) {
-    if (v == null) {
-      return false;
-    }
-    return bindMember.bind(target, name, v);
-
+  public static <T extends Throwable> void sneakyThrow(Throwable t) throws T {
+    throw (T) t;
   }
-
 }

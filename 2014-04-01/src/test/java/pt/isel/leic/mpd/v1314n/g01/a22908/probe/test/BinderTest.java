@@ -1,10 +1,10 @@
-package pt.isel.leic.pdm.v1314n.g01.a22908.probe.test;
+package pt.isel.leic.mpd.v1314n.g01.a22908.probe.test;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import pt.isel.leic.pdm.v1314n.g01.a22908.probe.*;
-import pt.isel.leic.pdm.v1314n.g01.a22908.probe.test.model.Student;
-import pt.isel.leic.pdm.v1314n.g01.a22908.probe.test.model.StudentDto;
+import pt.isel.leic.mpd.v1314n.g01.a22908.probe.*;
+import pt.isel.leic.mpd.v1314n.g01.a22908.probe.test.model.Student;
+import pt.isel.leic.mpd.v1314n.g01.a22908.probe.test.model.StudentDto;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
