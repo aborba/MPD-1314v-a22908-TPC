@@ -75,7 +75,7 @@ public class BinderTest extends TestCase {
     v.put("id", 657657);
     v.put("birthdate", sdf.parse("4-5-1997"));
     // Act
-    Student s = new Binder<>(Student.class, new BindProp<>(Student.class), new BindField<>())
+    Student s = new Binder<>(Student.class, new BindProp<Student>(Student.class), new BindField<>())
         .bindTo(v);
     // Assert
     Assert.assertEquals(v.get("name"), s.getName());
@@ -86,11 +86,10 @@ public class BinderTest extends TestCase {
   public void test_bind_fields_convert_strings_uppercase() throws Exception {
     // Arrange
     Map<String, Object> v = new HashMap<>();
-    v.put("name", "José CocaCola");
     v.put("id", 657657);
     v.put("birthDate", "4-5-1997");
+    v.put("name", "José CocaCola");
     // Act
-    // StudentDto s2 = new Binder(new BindFieldNonNull())
     StudentDto s2 = new Binder<>(StudentDto.class, new BindToUpper<StudentDto>(new BindField()))
         .bindTo(v);
     System.out.println(s2);
@@ -98,6 +97,15 @@ public class BinderTest extends TestCase {
     Assert.assertEquals(v.get("id"), s2.id);
     Assert.assertEquals("JOSÉ COCACOLA", s2.name);
     Assert.assertEquals(v.get("birthDate"), s2.birthDate);
+
+    // Arrange
+    v.put("name", null);
+    // Act
+    s2 = new Binder<>(StudentDto.class, new BindToUpper<StudentDto>(new BindField()))
+        .bindTo(v);
+    System.out.println(s2);
+    // Assert
+    Assert.assertEquals("DEFAULT NAME", s2.name);
   }
 
 }

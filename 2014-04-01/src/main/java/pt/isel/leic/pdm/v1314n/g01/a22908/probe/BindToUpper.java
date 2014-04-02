@@ -23,6 +23,9 @@ public class BindToUpper<T> implements BindMember<T> {
    */
   @Override
   public boolean bind(T target, String name, Object v) {
+    if (v == null) {
+      return false;
+    }
     if (v instanceof String) {
       v = ((String) v).toUpperCase();
     }
