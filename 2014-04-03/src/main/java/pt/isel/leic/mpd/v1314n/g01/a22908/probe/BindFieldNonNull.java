@@ -18,6 +18,8 @@ package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 /**
  * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
  */
 public class BindFieldNonNull extends BindNonNull {
 

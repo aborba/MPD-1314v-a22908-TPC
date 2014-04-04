@@ -67,39 +67,47 @@ import java.util.Map;
 
 import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsRTException;
 
+/**
+ * Binder is the base class that might be decorated.
+ *
+ * @param <T>
+ *
+ * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
+*/
 public class Binder<T> {
 
   private final Class<T> targetKlass;
-  private final BindMember<T>[] bms;
+  private final BindMember<T>[] bindMembers;
 
-  public Binder(Class<T> k, BindMember<T>... bms) {
-    this.targetKlass = k;
-    this.bms = bms;
+  public Binder(Class<T> tClass, BindMember<T>... tBindMembers) {
+    this.targetKlass = tClass;
+    this.bindMembers = tBindMembers;
   }
 
-  public static Map<String, Object> getFieldsValues(Object o)
+  public static Map<String, Object> getFieldsValues(Object object)
       throws IllegalArgumentException, IllegalAccessException {
-    Map<String, Object> res = new HashMap<>();
-    Field[] fs = o.getClass().getDeclaredFields();
-    for (Field f : fs) {
-      f.setAccessible(true);
-      res.put(f.getName(), f.get(o));
+    Map<String, Object> result = new HashMap<>();
+    Field[] fields = object.getClass().getDeclaredFields();
+    for (Field field : fields) {
+      field.setAccessible(true);
+      result.put(field.getName(), field.get(object));
     }
-    return res;
+    return result;
   }
 
-  public T bindTo(Map<String, Object> vals) {
+  public T bindTo(Map<String, Object> values) {
     try {
-      if (vals == null) {
+      if (values == null) {
         throw new IllegalArgumentException();
       }
       T target = targetKlass.newInstance();
-      for (Map.Entry<String, Object> e : vals.entrySet()) {
-        for (BindMember bm : bms) {
-          if (bm.bind(target, e.getKey(), e.getValue()))
+      for (Map.Entry<String, Object> entry : values.entrySet()) {
+        for (BindMember bindMember : bindMembers) {
+          if (bindMember.bind(target, entry.getKey(), entry.getValue()))
             break;
         }
-
       }
       return target;
     } catch (InstantiationException | IllegalAccessException ex) {
@@ -110,6 +118,11 @@ public class Binder<T> {
 
 }
 
+/**
+ * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
+ */
 class WrapperUtilites {
 
   final static Map<Class<?>, Class<?>> wrappers = new HashMap<>();
@@ -122,8 +135,8 @@ class WrapperUtilites {
 
   }
 
-  public static Class<?> toWrapper(Class<?> c) {
-    return c.isPrimitive() ? wrappers.get(c) : c;
+  public static Class<?> toWrapper(Class<?> anyClass) {
+    return anyClass.isPrimitive() ? wrappers.get(anyClass) : anyClass;
   }
 
 }

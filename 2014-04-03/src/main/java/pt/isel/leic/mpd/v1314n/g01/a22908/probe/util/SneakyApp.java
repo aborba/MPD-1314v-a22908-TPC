@@ -21,27 +21,29 @@ import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsR
 
 /**
  * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
  */
 public class SneakyApp {
 
   public static void main(String[] args) {
-    teste();
+    test();
   }
 
-  public static void teste() {
+  public static void test() {
     try {
-      m(0);
+      method(0);
     } catch (IllegalAccessException ex) {
       throwAsRTException(ex);
     }
   }
 
-  public static void m(int div) throws IllegalAccessException {
+  public static void method(int divider) throws IllegalAccessException {
     try {
-      int n = 5;
-      int res = n / div;
-    } catch (ArithmeticException ex) {
-      throw new IllegalAccessException("Illegal div = " + div);
+      int number = 5;
+      int result = number / divider;
+    } catch (ArithmeticException ae) {
+      throw new IllegalAccessException("Illegal divider = " + divider);
     }
   }
 }

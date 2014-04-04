@@ -22,27 +22,29 @@ import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsR
 
 /**
  * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
  */
 public class BindField<T> implements BindMember<T> {
 
   @Override
-  public boolean bind(T target, String name, Object v) {
+  public boolean bind(T target, String name, Object value) {
     try {
       Field[] fields = target.getClass().getDeclaredFields();
-      for (Field f : fields) {
-        String fName = f.getName();
-        if (fName.equals(name)) {
-          Class<?> fType = f.getType();
-          f.setAccessible(true);
-          if (fType.isPrimitive()) {
-            fType = f.get(target).getClass();
+      for (Field field : fields) {
+        String fieldName = field.getName();
+        if (fieldName.equals(name)) {
+          Class<?> fieldType = field.getType();
+          field.setAccessible(true);
+          if (fieldType.isPrimitive()) {
+            fieldType = field.get(target).getClass();
           }
-                    /*
-                     * Verifica se o tipo do campo (fType) é tipo base do tipo de fValue.
-                     * Nota: Tipo base inclui superclasses ou superinterfaces.
-                     */
-          if (fType.isAssignableFrom(v.getClass())) {
-            f.set(target, v);
+          /*
+           * Verifica se o tipo do campo (fieldType) é tipo base do tipo de fValue.
+           * Nota: Tipo base inclui superclasses ou superinterfaces.
+           */
+          if (fieldType.isAssignableFrom(value.getClass())) {
+            field.set(target, value);
             return true;
           } else {
             return false;
@@ -53,7 +55,6 @@ public class BindField<T> implements BindMember<T> {
       throwAsRTException(ex);
     }
     return false;
-
   }
 
 }

@@ -25,6 +25,8 @@ import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsR
 
 /**
  * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
  */
 public class BindProp<T> implements BindMember<T> {
 
@@ -32,32 +34,32 @@ public class BindProp<T> implements BindMember<T> {
 
   public BindProp(Class<T> targetKlass) {
 
-    Method[] ms = targetKlass.getMethods();
-    for (Method m : ms) {
-      String mName = m.getName();
-      if (!mName.startsWith("set")) {
+    Method[] methods = targetKlass.getMethods();
+    for (Method method : methods) {
+      String methodName = method.getName();
+      if (!methodName.startsWith("set")) {
         continue;
       }
-      if (!(m.getReturnType() == void.class)) {
+      if (!(method.getReturnType() == void.class)) {
         continue;
       }
-      Class<?>[] paramsKlasses = m.getParameterTypes();
-      if (paramsKlasses.length != 1) {
+      Class<?>[] parameterTypes = method.getParameterTypes();
+      if (parameterTypes.length != 1) {
         continue;
       }
-      setters.put(m.getName().substring(3).toLowerCase(), m);
+      setters.put(method.getName().substring(3).toLowerCase(), method);
     }
   }
 
   @Override
-  public boolean bind(T target, String key, Object v) {
+  public boolean bind(T target, String key, Object value) {
     try {
-      Method m = setters.get(key.toLowerCase());
-      if (m != null) {
-        Class<?> propType = WrapperUtilites.toWrapper(m.getParameterTypes()[0]);
-        if (propType.isAssignableFrom(v.getClass())) {
-          m.setAccessible(true);
-          m.invoke(target, v);
+      Method method = setters.get(key.toLowerCase());
+      if (method != null) {
+        Class<?> propertyType = WrapperUtilites.toWrapper(method.getParameterTypes()[0]);
+        if (propertyType.isAssignableFrom(value.getClass())) {
+          method.setAccessible(true);
+          method.invoke(target, value);
           return true;
         }
       }
@@ -65,7 +67,6 @@ public class BindProp<T> implements BindMember<T> {
       throwAsRTException(ex);
     }
     return false;
-
   }
 
 }

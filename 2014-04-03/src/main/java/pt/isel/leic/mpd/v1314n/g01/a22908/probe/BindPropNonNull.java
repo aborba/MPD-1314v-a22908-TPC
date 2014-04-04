@@ -18,11 +18,13 @@ package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 /**
  * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
  */
 public class BindPropNonNull<T> extends BindNonNull<T> {
 
-  public BindPropNonNull(Class<T> k) {
-    super(new BindProp(k));
+  public BindPropNonNull(Class<T> tClass) {
+    super(new BindProp(tClass));
   }
 
 }

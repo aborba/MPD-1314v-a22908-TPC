@@ -18,6 +18,8 @@ package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
 /**
  * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
  */
 public class BindNonNull<T> implements BindMember<T> {
 
@@ -34,15 +36,14 @@ public class BindNonNull<T> implements BindMember<T> {
    *
    * @param target
    * @param name
-   * @param v
+   * @param value
    * @return
    */
-  public boolean bind(T target, String name, Object v) {
-    if (v == null) {
+  public boolean bind(T target, String name, Object value) {
+    if (value == null) {
       return false;
     }
-    return bindMember.bind(target, name, v);
-
+    return bindMember.bind(target, name, value);
   }
 
 }

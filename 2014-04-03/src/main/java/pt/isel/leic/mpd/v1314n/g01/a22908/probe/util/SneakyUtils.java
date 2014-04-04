@@ -18,9 +18,10 @@ package pt.isel.leic.mpd.v1314n.g01.a22908.probe.util;
 
 /**
  * @author Miguel Gamboa at CCISEL
+ *
+ *         adapted by António Borba da Silva - 22908
  */
 public class SneakyUtils {
-
 
   public static void throwAsRTException(Throwable t) {
     SneakyUtils.<RuntimeException>sneakyThrow(t);
@@ -32,7 +33,7 @@ public class SneakyUtils {
      * http://www.mail-archive.com/javaposse@googlegroups.com/msg05984.html
      */
 
-  public static <T extends Throwable> void sneakyThrow(Throwable t) throws T {
-    throw (T) t;
+  public static <T extends Throwable> void sneakyThrow(Throwable throwable) throws T {
+    throw (T) throwable;
   }
 }

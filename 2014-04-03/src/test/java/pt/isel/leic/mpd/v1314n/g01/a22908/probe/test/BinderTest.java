@@ -90,7 +90,7 @@ public class BinderTest extends TestCase {
     v.put("birthDate", "4-5-1997");
     v.put("name", "José CocaCola");
     // Act
-    StudentDto s2 = new Binder<>(StudentDto.class, new BindToUpper<StudentDto>(new BindField()))
+    StudentDto s2 = new Binder<>(StudentDto.class, new BindToUpperCase<StudentDto>(new BindField()))
         .bindTo(v);
     System.out.println(s2);
     // Assert
@@ -101,7 +101,7 @@ public class BinderTest extends TestCase {
     // Arrange
     v.put("name", null);
     // Act
-    s2 = new Binder<>(StudentDto.class, new BindToUpper<StudentDto>(new BindField()))
+    s2 = new Binder<>(StudentDto.class, new BindToUpperCase<StudentDto>(new BindField()))
         .bindTo(v);
     System.out.println(s2);
     // Assert
