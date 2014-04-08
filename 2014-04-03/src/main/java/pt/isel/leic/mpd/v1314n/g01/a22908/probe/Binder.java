@@ -53,7 +53,7 @@
 
 /**
  * TPC 08
- * Reestruture o código da classe FieldBinderde modo a que:
+ * Reestruture o código da classe FieldBinder de modo a que:
  * - a funcionalidade de obter o Formatter e formatar um valor, possa ser reutilizada por outro binder, e.g. BindProp.
  * - a ter cuidados de desempenho para que nas afectações seguintes do mesmo membro (campo ou propriedade) não repita o
  * trabalho de reflexão de obtenção da anotação e instanciação do Formatter.

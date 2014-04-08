@@ -17,38 +17,19 @@
 
 package pt.isel.leic.mpd.v1314n.g01.a22908.probe.test.model;
 
-import pt.isel.leic.mpd.v1314n.g01.a22908.probe.Format;
+import pt.isel.leic.mpd.v1314n.g01.a22908.probe.Formatter;
 
 /**
  * @author Miguel Gamboa at CCISEL
  */
-public class StudentDto {
-
-  final public int id;
-  final public String birthDate;
-  @Format(formatter = FormatterToUpperCase.class)
-  public String name;
-
-  public StudentDto() {
-    this.id = 0;
-    this.birthDate = null;
-    this.name = "DEFAULT NAME";
-  }
-
-  public StudentDto(int id, String birthDate, String name) {
-    this.id = id;
-    this.birthDate = birthDate;
-    this.name = name;
-  }
-
-  @Format(formatter = FormatterToUpperCase.class)
-  public void setName(String name) {
-    this.name = name;
-  }
+public class FormatterToUpperCase implements Formatter {
 
   @Override
-  public String toString() {
-    return "StudentDto{" + "id=" + id + ", birthDate=" + birthDate + ", name=" + name + '}';
+  public Object format(Object object) {
+    if(!(object instanceof String)) {
+      throw new IllegalArgumentException();
+    }
+    return ((String)object).toUpperCase();
   }
 
 }

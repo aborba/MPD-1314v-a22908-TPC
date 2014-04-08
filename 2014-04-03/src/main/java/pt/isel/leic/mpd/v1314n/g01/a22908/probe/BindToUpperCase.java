@@ -15,11 +15,6 @@ public class BindToUpperCase<T> implements BindMember<T> {
 
   /**
    * bind - Default implementation - Converts a string to uppercase
-   *
-   * @param target
-   * @param name
-   * @param value
-   * @return
    */
   @Override
   public boolean bind(T target, String name, Object value) {

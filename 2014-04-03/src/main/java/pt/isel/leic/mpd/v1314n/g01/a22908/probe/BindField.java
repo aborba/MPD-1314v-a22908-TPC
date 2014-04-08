@@ -21,40 +21,48 @@ import java.lang.reflect.Field;
 import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsRTException;
 
 /**
- * @author Miguel Gamboa at CCISEL
  *
- *         adapted by António Borba da Silva - 22908
+ * @author Miguel Gamboa at CCISEL
  */
 public class BindField<T> implements BindMember<T> {
 
+  private Format a = null;
+
   @Override
-  public boolean bind(T target, String name, Object value) {
+  public boolean bind(T target, String name, Object v) {
     try {
       Field[] fields = target.getClass().getDeclaredFields();
-      for (Field field : fields) {
-        String fieldName = field.getName();
-        if (fieldName.equals(name)) {
-          Class<?> fieldType = field.getType();
-          field.setAccessible(true);
-          if (fieldType.isPrimitive()) {
-            fieldType = field.get(target).getClass();
+      for (Field f : fields) {
+        String fName = f.getName();
+        if (fName.equals(name)) {
+          Class<?> fType = f.getType();
+          f.setAccessible(true);
+          if (fType.isPrimitive()) {
+            fType = f.get(target).getClass();
           }
-          /*
-           * Verifica se o tipo do campo (fieldType) é tipo base do tipo de fValue.
-           * Nota: Tipo base inclui superclasses ou superinterfaces.
-           */
-          if (fieldType.isAssignableFrom(value.getClass())) {
-            field.set(target, value);
+                    /*
+                     * Verifica se o tipo do campo (fType) é tipo base do tipo de fValue.
+                     * Nota: Tipo base inclui superclasses ou superinterfaces.
+                     */
+          if (fType.isAssignableFrom(v.getClass())) {
+            if (a == null && f != null && f.isAnnotationPresent(Format.class)) {
+              a = f.getAnnotation(Format.class);
+              if (a != null) {
+                v = a.formatter().newInstance().format(v);
+              }
+            }
+            f.set(target, v);
             return true;
           } else {
             return false;
           }
         }
       }
-    } catch (IllegalArgumentException | IllegalAccessException ex) {
+    } catch (IllegalArgumentException | IllegalAccessException | InstantiationException  ex) {
       throwAsRTException(ex);
     }
     return false;
+
   }
 
 }

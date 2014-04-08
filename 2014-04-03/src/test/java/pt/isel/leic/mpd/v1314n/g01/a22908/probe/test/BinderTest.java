@@ -1,7 +1,7 @@
 package pt.isel.leic.mpd.v1314n.g01.a22908.probe.test;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.Test;
 import pt.isel.leic.mpd.v1314n.g01.a22908.probe.*;
 import pt.isel.leic.mpd.v1314n.g01.a22908.probe.test.model.Student;
 import pt.isel.leic.mpd.v1314n.g01.a22908.probe.test.model.StudentDto;
@@ -15,10 +15,11 @@ import java.util.Map;
 /**
  * Unit test for Binder class.
  */
-public class BinderTest extends TestCase {
+public class BinderTest {
 
   final static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
+  @Test
   public void test_bind_student_to_studentDto() throws Exception {
     // Arrange
     Student s1 = new Student(31531, sdf.parse("05-6-1994"), "Jose Cocacola", null);
@@ -35,6 +36,7 @@ public class BinderTest extends TestCase {
 
   }
 
+  @Test
   public void test_bind_fields_filter_null_values() throws Exception {
     // Arrange
     Map<String, Object> v = new HashMap<>();
@@ -53,6 +55,7 @@ public class BinderTest extends TestCase {
 
   }
 
+  @Test
   public void test_bind_to_student_properties() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException {
     // Arrange
     Map<String, Object> v = new HashMap<>();
@@ -68,6 +71,7 @@ public class BinderTest extends TestCase {
     Assert.assertEquals(v.get("birthdate"), s.getBirthDate());
   }
 
+  @Test
   public void test_bind_to_student_properties_and_fields() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException {
     // Arrange
     Map<String, Object> v = new HashMap<>();
@@ -83,6 +87,7 @@ public class BinderTest extends TestCase {
     Assert.assertEquals(v.get("birthdate"), s.getBirthDate());
   }
 
+  @Test
   public void test_bind_fields_convert_strings_uppercase() throws Exception {
     // Arrange
     Map<String, Object> v = new HashMap<>();
@@ -107,5 +112,25 @@ public class BinderTest extends TestCase {
     // Assert
     Assert.assertEquals("DEFAULT NAME", s2.name);
   }
+
+  @Test
+  public void test_bind_fields_and_put_string_in_uppercase() throws Exception
+  {
+    // Arrange
+    Map<String, Object> values = new HashMap<>();
+    values.put("name", "jose manel baptista");
+    values.put("id", 657657);
+    values.put("birthDate", "4-5-1997");
+    // Act
+    // StudentDto studentDto = new Binder(new BindFieldNonNull())
+    StudentDto studentDto = new Binder<>(StudentDto.class, new BindField<>())
+        .bindTo(values);
+    System.out.println(studentDto);
+    // Assert
+    Assert.assertEquals(values.get("id"), studentDto.id);
+    Assert.assertEquals("JOSE MANEL BAPTISTA", studentDto.name);
+    Assert.assertEquals(values.get("birthDate"), studentDto.birthDate);
+  }
+
 
 }
