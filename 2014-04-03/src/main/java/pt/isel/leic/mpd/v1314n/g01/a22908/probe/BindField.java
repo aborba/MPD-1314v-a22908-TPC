@@ -24,12 +24,10 @@ import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsR
  *
  * @author Miguel Gamboa at CCISEL
  */
-public class BindField<T> implements BindMember<T> {
-
-  private Format a = null;
+public class BindField<T> extends AbstractBindMember<T> {
 
   @Override
-  public boolean bind(T target, String name, Object v) {
+  public boolean bind(Object target, String name, Object v) {
     try {
       Field[] fields = target.getClass().getDeclaredFields();
       for (Field f : fields) {
@@ -45,13 +43,7 @@ public class BindField<T> implements BindMember<T> {
                      * Nota: Tipo base inclui superclasses ou superinterfaces.
                      */
           if (fType.isAssignableFrom(v.getClass())) {
-            if (a == null && f != null && f.isAnnotationPresent(Format.class)) {
-              a = f.getAnnotation(Format.class);
-              if (a != null) {
-                v = a.formatter().newInstance().format(v);
-              }
-            }
-            f.set(target, v);
+            f.set(target, format(f, v));
             return true;
           } else {
             return false;

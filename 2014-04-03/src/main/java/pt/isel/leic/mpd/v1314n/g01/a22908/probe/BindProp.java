@@ -28,7 +28,7 @@ import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsR
  *
  *         adapted by António Borba da Silva - 22908
  */
-public class BindProp<T> implements BindMember<T> {
+public class BindProp<T> extends AbstractBindMember<T> {
 
   private final Map<String, Method> setters = new HashMap<>();
 
@@ -59,7 +59,7 @@ public class BindProp<T> implements BindMember<T> {
         Class<?> propertyType = WrapperUtilites.toWrapper(method.getParameterTypes()[0]);
         if (propertyType.isAssignableFrom(value.getClass())) {
           method.setAccessible(true);
-          method.invoke(target, value);
+          method.invoke(target, format(method, value));
           return true;
         }
       }
