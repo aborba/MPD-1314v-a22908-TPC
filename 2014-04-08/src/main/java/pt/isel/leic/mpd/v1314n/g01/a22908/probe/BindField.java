@@ -29,11 +29,12 @@ import static pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils.throwAsR
  */
 public class BindField<T> extends AbstractBindMember<T> {
 
-  public BindField(Class<T> targetKlass) {
-    for (Field f : targetKlass.getDeclaredFields()) {
-      addFormatter(f);
-    }
+  public BindField(Class<T> targetClass) {
 
+    Field[] fields = targetClass.getDeclaredFields();
+    for (Field field : fields) {
+      addFormatter(field, targetClass);
+    }
   }
 
   @Override

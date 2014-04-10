@@ -27,11 +27,10 @@ import pt.isel.leic.mpd.v1314n.g01.a22908.probe.Format;
  */
 public class StudentDto {
 
-
   final public int id;
   @Format(formatterMethod = "formatDateSeparator")
   final public String birthDate;
-  @Format(formatterKlass = FormatterToUpperCase.class)
+  @Format(formatterClass = FormatterToUpperCase.class)
   final public String name;
 
   public StudentDto() {
@@ -46,8 +45,8 @@ public class StudentDto {
     this.name = name;
   }
 
-  private static String formatDateSeparator(String dt) {
-    return dt.replace("/", "-");
+  private static String formatDateSeparator(String dateString) {
+    return dateString.replace("/", "-");
   }
 
   @Override

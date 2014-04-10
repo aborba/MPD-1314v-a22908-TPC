@@ -23,34 +23,56 @@ package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 import pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils;
 
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractBindMember<T> implements BindMember<T> {
+public abstract class AbstractBindMember<T>
+    implements BindMember<T> {
 
-  protected Map<AnnotatedElement, Formatter> formats = new HashMap<>();
+  protected Map<AnnotatedElement, Formatter> formattersMap = new HashMap<>();
 
-  protected void addFormatter(AnnotatedElement mb) {
-    Format a = mb.getAnnotation(Format.class);
-    if (a != null) {
-      try {
-        Class<? extends Formatter> klassFrt = a.formatterKlass();
-        if (klassFrt != Formatter.class) {
-          Formatter frt = klassFrt.newInstance();
-          formats.put(mb, frt);
-        }
-      } catch (InstantiationException | IllegalAccessException ex) {
-        SneakyUtils.throwAsRTException(ex);
+  protected void addFormatter(AnnotatedElement annotatedElement, Class<T> hostClass) {
+
+    Format formatAnnotation = annotatedElement.getAnnotation(Format.class);
+
+    if (formatAnnotation == null) {
+      return;
+    }
+
+    try {
+      Class<? extends Formatter> formatterClass = formatAnnotation.formatterClass();
+      if (formatterClass != Formatter.class) {
+        Formatter formatter = formatterClass.newInstance();
+        formattersMap.put(annotatedElement, formatter);
+        return;
       }
+      String formatterMethodName = formatAnnotation.formatterMethod();
+      if (formatterMethodName.equals("")) {
+        return;
+      }
+      Method[] methods = hostClass.getDeclaredMethods();
+      for (Method method : methods) {
+        if (!method.getName().equals(formatterMethodName) ||
+            method.getReturnType() == void.class ||
+            method.getParameterCount() > 1) {
+          continue;
+        }
+        method.setAccessible(true);
+        formattersMap.put(annotatedElement, new FormatterAdapter(method));
+      }
+    } catch (InstantiationException | IllegalAccessException ex) {
+      SneakyUtils.throwAsRTException(ex);
     }
   }
 
-  protected Object format(AnnotatedElement mb, Object v) throws InstantiationException, IllegalAccessException {
-    Formatter f = formats.get(mb);
-    if (f != null) {
-      return f.format(v);
+  protected Object format(AnnotatedElement annotatedElement, Object target)
+      throws InstantiationException, IllegalAccessException {
+    Formatter formatter = formattersMap.get(annotatedElement);
+    if (formatter != null) {
+      return formatter.format(target);
     }
-
-    return v;
+    return target;
   }
+
 }

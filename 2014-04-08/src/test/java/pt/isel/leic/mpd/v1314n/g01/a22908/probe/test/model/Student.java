@@ -80,7 +80,7 @@ public class Student {
     return name;
   }
 
-  @Format(formatterKlass = FormatterToUpperCase.class)
+  @Format(formatterClass = FormatterToUpperCase.class)
   public void setName(String name) {
     this.name = name;
   }

@@ -50,7 +50,7 @@ public class BindProp<T>
         continue;
       }
       setters.put(m.getName().substring(3).toLowerCase(), m);
-      addFormatter(m);
+      addFormatter(m, targetKlass);
     }
   }
 

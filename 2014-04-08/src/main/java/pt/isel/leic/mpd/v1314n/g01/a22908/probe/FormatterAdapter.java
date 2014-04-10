@@ -20,17 +20,30 @@
 
 package pt.isel.leic.mpd.v1314n.g01.a22908.probe;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import pt.isel.leic.mpd.v1314n.g01.a22908.probe.util.SneakyUtils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Created by António on 2014/04/10.
  */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Format {
+public class FormatterAdapter implements Formatter {
 
-  public Class<? extends Formatter> formatterClass() default Formatter.class;
+  Method targetMethod;
 
-  public String formatterMethod() default "";
+  public FormatterAdapter(Method m) {
+    targetMethod = m;
+  }
 
+  @Override
+  public Object format(Object o) {
+    Object res = null;
+    try {
+      res = targetMethod.invoke(null, o);
+    } catch (IllegalAccessException | InvocationTargetException ex) {
+      SneakyUtils.throwAsRTException(ex);
+    }
+    return res;
+  }
 }
