@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+  Copyright (C) 2014 Miguel Gamboa at CCISEL
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  Adapted by António Borba da Silva, 22908 at ISEL
+  (Group 01, Class LI41N, Summer 2013-2014, MPD, LEIC)
+  -->
+
+<html>
+<head lang="pt">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>TPC 08</h1>
+
+<p>
+    Reestruture o código da classe BindField de modo a que:
+</p>
+<ol>
+    <li>
+        a funcionalidade de obter o Formatter e formatar um valor, possa ser reutilizada por outro binder, e.g.
+        BindProp.
+    </li>
+    <li>
+        a ter cuidados de desempenho para que nas afectações seguintes do mesmo membro (campo ou propriedade) não
+        repita o trabalho de reflexão de obtenção da anotação e instanciação do Formatter.
+    </li>
+</ol>
+
+</body>
+</html>
