@@ -26,7 +26,7 @@ public class HtmlLeafElement implements HtmlNode {
 
   public String print(int indent) {
     String res = calcIndent(indent) + "<" + name;
-    res += (content != null ? " " : "") + content;
+    res += (content != null ? " " + content : "");
     res += " />\n";
     return res;
   }

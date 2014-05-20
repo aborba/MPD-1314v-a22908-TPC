@@ -1,7 +1,7 @@
 package pt.isel.mpd14.app;
 
 import pt.isel.mpd14.tohtml.HtmlWriter;
-import pt.isel.mpd14.tohtml.layouts.SimpleLayout;
+import pt.isel.mpd14.tohtml.layouts.SimpleLayout2;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -20,6 +20,6 @@ public class Program
         PrintStream out = System.out;
         
 //        new HtmlWriter(out, new TableLayout()).write(s);
-        new HtmlWriter(out, new SimpleLayout()).write(s);
+        new HtmlWriter(out, new SimpleLayout2()).write(s);
     }
 }
