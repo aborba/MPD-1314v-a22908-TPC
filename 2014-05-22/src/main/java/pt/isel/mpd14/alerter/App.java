@@ -13,8 +13,8 @@ public class App {
 
     a.addReporter(new MessageBoxReport());
     a.addReporter(new HoraHHMMSSreport());
+    a.addReporter(new WebServiceReport());
 
     a.start();
-    a.addReporter(new WebServiceReport());
   }
 }
