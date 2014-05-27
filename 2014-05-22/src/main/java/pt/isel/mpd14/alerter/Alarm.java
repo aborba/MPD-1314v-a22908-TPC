@@ -22,8 +22,16 @@ public class Alarm {
     events.add(time);
   }
 
-  public void addAlarmNotificationsSubscriber(AlarmNotificationsSubscriber subscriber) {
+  public void subscribeAlarmNotifications(AlarmNotificationsSubscriber subscriber) {
     this.subscribers.add(subscriber);
+  }
+
+  public void unsubscribeAlarmNotifications(AlarmNotificationsSubscriber item) {
+    for (AlarmNotificationsSubscriber subscriber : subscribers) {
+      if (subscriber.equals(item)) {
+        subscribers.remove(subscriber);
+      }
+    }
   }
 
   public void start() {

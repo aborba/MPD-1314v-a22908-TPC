@@ -11,10 +11,23 @@ public class App {
     a.addEvent(now + 5000);
     a.addEvent(now + 6000);
 
-    a.addAlarmNotificationsSubscriber(new MessageBoxReport());
-    a.addAlarmNotificationsSubscriber(new HoraHHMMSSreport());
-    a.addAlarmNotificationsSubscriber(new WebServiceReport());
+    a.subscribeAlarmNotifications(new MessageBoxReport());
+    HoraHHMMSSreport hhmmsSreport = new HoraHHMMSSreport();
+    a.subscribeAlarmNotifications(hhmmsSreport);
+    a.subscribeAlarmNotifications(new WebServiceReport());
 
+    System.out.println("\n---> Starting...");
     a.start();
+
+    now = System.currentTimeMillis();
+    a.addEvent(now + 2000);
+    a.addEvent(now + 5000);
+    a.addEvent(now + 6000);
+
+    a.unsubscribeAlarmNotifications(hhmmsSreport);
+
+    System.out.println("\n---> Starting...");
+    a.start();
+
   }
 }
