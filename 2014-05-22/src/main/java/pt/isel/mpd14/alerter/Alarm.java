@@ -16,14 +16,14 @@ public class Alarm {
    * Cada evento é representado por um instante de tempo em Milisegundos
   */
   SortedSet<Long> events = new TreeSet<Long>();
-  List<Reporter> reporters = new LinkedList<Reporter>();
+  Collection<AlarmNotificationsSubscriber> subscribers = new LinkedList<AlarmNotificationsSubscriber>();
 
   public void addEvent(long time) {
     events.add(time);
   }
 
-  public void addReporter(Reporter reporter) {
-    reporters.add(reporter);
+  public void addReporter(AlarmNotificationsSubscriber subscriber) {
+    this.subscribers.add(subscriber);
   }
 
   public void start() {
@@ -36,8 +36,9 @@ public class Alarm {
         System.out.println("\n---> Triiiim");
 
         // Notify enrolled reporters
-        for (Reporter reporter : reporters) {
-          reporter.report("Triiim", justNow);
+        AlarmBag alarmBag = new AlarmBag("Triiim", justNow);
+        for (AlarmNotificationsSubscriber subscriber : subscribers) {
+          subscriber.notify(alarmBag);
         }
 
         iter.remove();
