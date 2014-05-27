@@ -15,14 +15,14 @@ public class Alarm {
   /*
    * Cada evento é representado por um instante de tempo em Milisegundos
   */
-  SortedSet<Long> events = new TreeSet<Long>();
-  Collection<AlarmNotificationsSubscriber> subscribers = new LinkedList<AlarmNotificationsSubscriber>();
+  final private SortedSet<Long> events = new TreeSet<Long>();
+  final private Collection<AlarmNotificationsSubscriber> subscribers = new LinkedList<AlarmNotificationsSubscriber>();
 
   public void addEvent(long time) {
     events.add(time);
   }
 
-  public void addReporter(AlarmNotificationsSubscriber subscriber) {
+  public void addAlarmNotificationsSubscriber(AlarmNotificationsSubscriber subscriber) {
     this.subscribers.add(subscriber);
   }
 

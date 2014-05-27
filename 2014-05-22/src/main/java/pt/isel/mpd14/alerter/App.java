@@ -11,9 +11,9 @@ public class App {
     a.addEvent(now + 5000);
     a.addEvent(now + 6000);
 
-    a.addReporter(new MessageBoxReport());
-    a.addReporter(new HoraHHMMSSreport());
-    a.addReporter(new WebServiceReport());
+    a.addAlarmNotificationsSubscriber(new MessageBoxReport());
+    a.addAlarmNotificationsSubscriber(new HoraHHMMSSreport());
+    a.addAlarmNotificationsSubscriber(new WebServiceReport());
 
     a.start();
   }
